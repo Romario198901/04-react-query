@@ -31,11 +31,10 @@ function App() {
     enabled: query.trim() !== '',
     placeholderData: keepPreviousData,
   });
-  console.log(data);
   useEffect(() => {
     if (isError) {
       toast.error('Something went wrong. Please try again.');
-      console.log(error);
+    
     }
   }, [isError, error]);
   useEffect(() => {
