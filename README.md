@@ -1,73 +1,71 @@
-# React + TypeScript + Vite
+# React Query Movie Search
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Vite + React + TypeScript app for searching movies via The Movie Database (TMDB). The project uses `@tanstack/react-query` for data fetching and caching, plus pagination and modal movie details.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Search movies by title
+- Fetch and cache results with React Query
+- Paginate results using `react-paginate`
+- Display movie details in an accessible modal
+- Show error and empty state notifications with `react-hot-toast`
+- Responsive grid layout with poster thumbnails
 
-## React Compiler
+## Technologies
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- React 19
+- TypeScript
+- Vite
+- @tanstack/react-query
+- axios
+- react-hot-toast
+- react-paginate
 
-## Expanding the ESLint configuration
+## Setup
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Install dependencies:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Create a `.env` file in the project root with your TMDB bearer token:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_TMDB_KEY=your_tmdb_bearer_token
 ```
+
+3. Run the development server:
+
+```bash
+npm run dev
+```
+
+4. Open the URL shown in the terminal.
+
+## Available scripts
+
+- `npm run dev` — start the local dev server
+- `npm run build` — build the production app
+- `npm run preview` — preview the production build
+- `npm run lint` — run ESLint
+
+## Project structure
+
+- `src/main.tsx` — app entry point
+- `src/components/App/App.tsx` — main UI and query state
+- `src/components/SearchBar/SearchBar.tsx` — search input and form handling
+- `src/components/MovieGrid/MovieGrid.tsx` — movie list grid
+- `src/components/MovieModal/MovieModal.tsx` — movie detail modal
+- `src/services/movieService.ts` — TMDB search API client
+- `src/types/movie.ts` — movie data model
+
+## Environment variables
+
+- `VITE_TMDB_KEY` — TMDB bearer API token used by `movieService.ts`
+
+## Notes
+
+- Search only runs when a query is provided.
+- The app avoids flicker by keeping previous data while fetching new pages.
+- Click a movie poster to open the modal, or press `Escape` / click outside to close it.
